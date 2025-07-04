@@ -29,7 +29,7 @@ jobs:
       - name: Build project
         uses: docker/build-push-action@v4
         with:
-          context: ./kubernetes-networking/frontend
+          context: ./frontend
           push: true
           tags: |
             ghcr.io/${{ env.IMAGE_PATH }}/${{ env.IMAGE_NAME }}:latest
