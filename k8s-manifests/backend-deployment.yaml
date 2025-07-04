@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-backend
+  template:
+    metadata:
+      labels:
+        app: kube-backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/nkwenti-severian-ndongtsop/k8s-backend:latest
+          envFrom:
+            - configMapRef:
+                name: backend-config
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: JWT_SECRET
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+  selector:
+    app: kube-backend 
