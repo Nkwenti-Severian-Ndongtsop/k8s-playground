@@ -3,7 +3,7 @@ name: automated package push
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   IMAGE_NAME: k8s-frontend
