@@ -109,7 +109,7 @@ async fn main() {
         .route("/me", post(me))
         .layer(Extension(pool))
         .layer(Extension(jwt_secret))
-        .route("/health", get(|| async { "backend k8s-net is running" }))
+        .route("/health", get(|| async { "backend k8s-net is running\n" }))
         .layer(cors);
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
     println!("Backend server running on port 8080");
