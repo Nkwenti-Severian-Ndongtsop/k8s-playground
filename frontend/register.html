@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login here</a>.</p>
+        <div id="registerMessage"></div>
+    </div>
+    <script>
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const res = await fetch('http://localhost:8080/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const msg = document.getElementById('registerMessage');
+        if (res.status === 201) {
+            // Registration successful, redirect to login page
+            window.location.href = 'login.html';
+        } else if (res.status === 409) {
+            msg.textContent = 'Username already exists.';
+            msg.style.color = 'red';
+        } else {
+            msg.textContent = 'Registration failed.';
+            msg.style.color = 'red';
+        }
+    });
+    </script>
+</body>
+</html> 
