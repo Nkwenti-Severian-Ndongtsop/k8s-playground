@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Profile</h2>
+        <p id="welcomeMessage">Loading...</p>
+        <button onclick="logout()">Logout</button>
+    </div>
+    <script>
+    // Example: Show username if stored in localStorage or fetch from backend
+    document.addEventListener('DOMContentLoaded', async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        try {
+            const res = await fetch('http://localhost:8080/me', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token })
+            });
+            if (res.ok) {
+                const data = await res.json();
+                document.getElementById('welcomeMessage').textContent = 'Welcome, ' + data.username + '!';
+            } else {
+                window.location.href = 'login.html';
+            }
+        } catch {
+            window.location.href = 'login.html';
+        }
+    });
+
+    function logout() {
+        localStorage.removeItem('token');
+        window.location.href = 'login.html';
+    }
+    </script>
+</body>
+</html>
