@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+    app: postgres
+  namespace: default
+data:
+  POSTGRES_DB: kubenet_db
+  POSTGRES_USER: nkwenti 
