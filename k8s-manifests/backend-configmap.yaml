@@ -4,6 +4,6 @@ metadata:
   name: backend-config
   labels:
     app: kube-backend
-  namespace: default
+  namespace: kube-net
 data:
   DATABASE_URL: postgres://nkwenti:mysecretpassword@postgres:5432/kubenet_db 
