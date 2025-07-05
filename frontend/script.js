@@ -1,6 +1,7 @@
 let token = null;
 
-const BACKEND_BASE_URL = `http://${window.location.hostname}:8080`;
+// Use the same hostname but different port for backend
+const BACKEND_BASE_URL = `http://${window.location.hostname}:30081`;
 
 document.getElementById('register-form').onsubmit = async (e) => {
   e.preventDefault();
