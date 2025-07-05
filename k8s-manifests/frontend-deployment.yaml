@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-frontend
+  namespace: kube-net
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,9 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/nkwenti-severian-ndongtsop/k8s-frontend:latest
+          image: nkwentihub/k8s-frontend:latest
+          imagePullPolicy: Always
+
           ports:
             - containerPort: 80
 ---
@@ -22,6 +25,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kube-frontend
+  namespace: kube-net
 spec:
   type: NodePort
   ports:
