@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
+  namespace: kube-net
 spec:
   replicas: 1
   selector:
@@ -29,14 +30,20 @@ spec:
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d
       volumes:
         - name: postgres-storage
           emptyDir: {}
+        - name: init-script
+          configMap:
+            name: postgres-init
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: postgres
+  namespace: kube-net
 spec:
   type: ClusterIP
   ports:
