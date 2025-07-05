@@ -4,7 +4,7 @@ metadata:
   name: postgres-config
   labels:
     app: postgres
-  namespace: default
+  namespace: kube-net
 data:
   POSTGRES_DB: kubenet_db
   POSTGRES_USER: nkwenti 
